@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Orçamento Doméstico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #FFA500;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label, input {
+            width: 100%;
+            padding: 10px;
+        }
+        input {
+            box-sizing: border-box;
+            border: none;
+            background-color: #333;
+            color: #FFA500;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #FFA500;
+            border: none;
+            color: #000;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #FFA500;
+            padding: 10px;
+            text-align: left;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Orçamento Doméstico</h1>
+        <h2>Gerencie suas finanças com facilidade</h2>
+        <div class="form-group">
+            <label for="income">Renda Mensal:</label>
+            <input type="number" id="income" placeholder="Digite sua renda mensal">
+        </div>
+        <div class="form-group">
+            <label for="fixed-expenses">Despesas Fixas:</label>
+            <input type="number" id="fixed-expenses" placeholder="Digite suas despesas fixas">
+        </div>
+
+    <div class="form-group">
+        <label for="aluguel">Aluguel:</label>
+        <input type="number" id="aluguel" placeholder="Digite o valor para Aluguel">
+    </div>
+    
+    <div class="form-group">
+        <label for="alimentação">Alimentação:</label>
+        <input type="number" id="alimentação" placeholder="Digite o valor para Alimentação">
+    </div>
+    
+    <div class="form-group">
+        <label for="transporte">Transporte:</label>
+        <input type="number" id="transporte" placeholder="Digite o valor para Transporte">
+    </div>
+    
+    <div class="form-group">
+        <label for="lazer">Lazer:</label>
+        <input type="number" id="lazer" placeholder="Digite o valor para Lazer">
+    </div>
+    
+    <div class="form-group">
+        <label for="outros">Outros:</label>
+        <input type="number" id="outros" placeholder="Digite o valor para Outros">
+    </div>
+    
+        <button onclick="calculateBudget()">Calcular Orçamento</button>
+        <table id="expenses-table"></table>
+        <div class="result" id="result"></div>
+    </div>
+    <footer>
+        &copy; 2023 Aleksandro Alves da Rocha Junior
+    </footer>
+    <script>
+        function calculateBudget() {
+            var income = document.getElementById('income').value;
+            var fixedExpenses = document.getElementById('fixed-expenses').value;
+            var categories = ['Aluguel', 'Alimentação', 'Transporte', 'Lazer', 'Outros'];
+            var variableExpenses = 0;
+
+            var tableContent = '<tr><th>Categoria</th><th>Valor</th></tr>';
+            tableContent += '<tr><td>Renda</td><td>' + income + '</td></tr>';
+            tableContent += '<tr><td>Despesas Fixas</td><td>' + fixedExpenses + '</td></tr>';
+
+            categories.forEach(function(category) {
+                var value = document.getElementById(category.toLowerCase()).value || 0;
+                variableExpenses += parseFloat(value);
+                tableContent += '<tr><td>' + category + '</td><td>' + value + '</td></tr>';
+            });
+
+            var totalExpenses = parseFloat(fixedExpenses) + variableExpenses;
+            var balance = income - totalExpenses;
+            document.getElementById('result').innerText = 'Saldo: R$ ' + balance.toFixed(2);
+            document.getElementById('expenses-table').innerHTML = tableContent;
+        }
+    </script>
+</body>
+</html>
